@@ -48,7 +48,7 @@ public:
                 // ROS_INFO("distance: %lf", distance);
                 // ROS_INFO("total time: %lf", duration_time.toSec());
                 
-                if(distance > 2.0) {
+                if(distance > 1.5) {
                     ROS_INFO("robot stopped");
                     this->sequence = 1;
                     distance = 0.0; //reset
@@ -59,11 +59,11 @@ public:
 
             } else if(this->sequence == 1) {
                 cmd.linear.x = 0.0;
-                cmd.angular.z = -0.2;
+                cmd.angular.z = 0.3;
                 ROS_INFO("robot rotate");
                 
                 ROS_INFO("total time: %lf", duration_time.toSec());
-                if(duration_time.toSec() > 1.5) {
+                if(duration_time.toSec() > 3.0) {
                     
                     cmd.angular.z = 0.0;
                     this->sequence = 2;
@@ -72,15 +72,15 @@ public:
                 }
 
             }  else if(this->sequence == 2) {
-                cmd.linear.x = 0.2;
-                cmd.angular.z = -0.2;
+                cmd.linear.x = 0.1;
+                cmd.angular.z = 0.3;
                 ROS_INFO("robot rotate and moving");
 
                 distance = cmd.linear.x * duration_time.toSec();
 
                 ROS_INFO("distance: %lf", distance);
 
-                if(distance > 0.5) {
+                if(distance > 1.0) {
                     ROS_INFO("robot stopped");
                     this->sequence = 3;
                     distance = 0.0; //reset
